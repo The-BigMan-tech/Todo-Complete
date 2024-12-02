@@ -37,4 +37,4 @@ process.on('SIGINT',async ()=>{
     await closeConnectionToDB()
     process.exit(0)
 })
-app.listen(4000,()=>console.log("Server is running on the port 4000"))
+app.listen(4100,()=>console.log("Server is running on the port 4000"))

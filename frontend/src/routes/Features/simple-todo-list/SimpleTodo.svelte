@@ -32,7 +32,7 @@
         toggleCrossTask(index)
     }
     async function loadChanges() {
-        const response = await fetch('http://localhost:4000/getTask',{method:'GET'})
+        const response = await fetch('http://localhost:4100/getTask',{method:'GET'})
         if (!response.ok) throw new Error('Got an error on response')
         taskData = await response.json()
     }
@@ -41,7 +41,7 @@
     })
     async function editTask(index:number) {
         console.log(`RECEIVED THE NEW TASK: ${task} AT INDEX: ${index}`);
-        await fetch(`http://localhost:4000/editTask/${encodeURIComponent(JSON.stringify({name:task,index:index}))}`,
+        await fetch(`http://localhost:4100/editTask/${encodeURIComponent(JSON.stringify({name:task,index:index}))}`,
             {method:'PUT',}
         )
         loadChanges()
@@ -59,7 +59,7 @@
     }
     async function addTask() {
         if (!task.length) return
-        await fetch('http://localhost:4000/addTask',
+        await fetch('http://localhost:4100/addTask',
         {
             method:'POST',
             headers:{'Content-Type':'application/json'},
@@ -69,7 +69,7 @@
     }
     async function deleteTask(removeTask:TaskData,index:number) {
         await fetch(
-            `http://localhost:4000/deleteTask/${encodeURIComponent(JSON.stringify(removeTask))}`,
+            `http://localhost:4100/deleteTask/${encodeURIComponent(JSON.stringify(removeTask))}`,
             {method:'DELETE'}
         )
         loadChanges()
