@@ -92,7 +92,12 @@
                 <div class="flex flex-col gap-5 relative mt-8">
                     {#each taskData as addedTask,index}
                         <div class="flex bg-[#101114] relative rounded-2xl py-4 px-6 items-center gap-5 text-white">
-                            <button onclick={()=>toggleCheckedTask(index)} class={`border-2 border-[#00e5ff] h-6 w-6 rounded-sm text-transparent ${checked[index]}`}>0</button>
+                            <button onclick={()=>toggleCheckedTask(index)} class="relative">
+                                <div class={`border-2 border-[#00e5ff] h-6 w-6 rounded-sm text-transparent ${checked[index]}`}>0</div>
+                                {#if (checked[index])}
+                                    <img class="absolute w-3 h-3 left-[6px] top-[5px]" src="/assets/images/check-solid(1).svg" alt="">
+                                {/if}
+                            </button>
                             {#if (edit[index])}
                                 <input onchange={(event)=>typingTask(event,1)} value={addedTask.name} class={`text-xl text-black outline-none w-96 ${cross[index]}`}/>
                             {:else}
