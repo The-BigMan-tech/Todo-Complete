@@ -4,16 +4,16 @@
     interface TaskData {
         name:string
     }
-    let task:string = $state('')
+    let task:string[] = $state([])
     let taskData:TaskData[] = $state([])
     let checked:string[] = $state([])
     let cross:string[] = $state([])
     let edit:boolean[] = $state([])
     let edit_or_done:string[] = $state([])
 
-    function typingTask(event:Event):void {
+    function typingTask(event:Event,index:number):void {
         const target = event.target as HTMLInputElement
-        task = target.value
+        task[index] = target.value
     }
     function toggleCrossTask(index:number):void {
         if (checked[index]) {
@@ -40,8 +40,8 @@
         loadChanges()
     })
     async function editTask(index:number) {
-        console.log(`RECEIVED THE NEW TASK: ${task} AT INDEX: ${index}`);
-        await fetch(`http://localhost:4100/editTask/${encodeURIComponent(JSON.stringify({name:task,index:index}))}`,
+        console.log(`RECEIVED THE NEW TASK: ${task[1]} AT INDEX: ${index}`);
+        await fetch(`http://localhost:4100/editTask/${encodeURIComponent(JSON.stringify({name:task[1],index:index}))}`,
             {method:'PUT',}
         )
         loadChanges()
@@ -55,15 +55,15 @@
         }
         edit[index] = true
         edit_or_done[index] = '/assets/images/square-check-solid.svg'
-        task = defaultText as string
+        task[1] = defaultText as string
     }
     async function addTask() {
-        if (!task.length) return;
+        if (!task[0].length) return;
         await fetch('http://localhost:4100/addTask',
         {
             method:'POST',
             headers:{'Content-Type':'application/json'},
-            body:JSON.stringify({name:task})
+            body:JSON.stringify({name:task[0]})
         })
         loadChanges()
     }
@@ -82,7 +82,7 @@
         <div class="flex relative">
             <div class="mt-10">
                 <form action="">
-                    <input onchange={typingTask} value='' class="py-3 px-6 border-[#B7D8E8] w-[35rem] border rounded-3xl text-xl font-[Consolas] outline-none bg-transparent text-[#B7D8E8]" type="text" placeholder="You can write anything here">
+                    <input onchange={(event)=>typingTask(event,0)} value='' class="py-3 px-6 border-[#B7D8E8] w-[35rem] border rounded-3xl text-xl font-[Consolas] outline-none bg-transparent text-[#B7D8E8]" type="text" placeholder="You can write anything here">
                     <button onclick={addTask}>
                         <div class="bg-[#00e5ff] py-3 px-8 font-[600] text-lg rounded-3xl absolute right-0 top-[2.55rem]">
                             <h1>ADD</h1>
@@ -94,7 +94,7 @@
                         <div class="flex bg-[#101114] relative rounded-2xl py-4 px-6 items-center gap-5 text-white">
                             <button onclick={()=>toggleCheckedTask(index)} class={`border-2 border-[#00e5ff] h-6 w-6 rounded-sm text-transparent ${checked[index]}`}>0</button>
                             {#if (edit[index])}
-                                <input onchange={typingTask} value={addedTask.name} class={`text-xl text-black outline-none w-96 ${cross[index]}`}/>
+                                <input onchange={(event)=>typingTask(event,1)} value={addedTask.name} class={`text-xl text-black outline-none w-96 ${cross[index]}`}/>
                             {:else}
                                 <h1 class={`text-xl outline-none bg-[#101114] ${cross[index]}`}>{addedTask.name}</h1>
                             {/if}
