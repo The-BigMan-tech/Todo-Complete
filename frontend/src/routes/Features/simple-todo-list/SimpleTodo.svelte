@@ -17,7 +17,7 @@
     }
     function toggleCrossTask(index:number):void {
         if (checked[index]) {
-            cross[index] = 'line-through text-[#4c4c4c]'
+            cross[index] = 'line-through text-[#9e9c9c]'
             return
         }
         cross[index] = ''
@@ -91,7 +91,7 @@
                 </form>
                 <div class="flex flex-col gap-5 relative mt-8">
                     {#each taskData as addedTask,index}
-                        <div class="flex bg-[#101114] relative rounded-2xl py-4 px-6 items-center gap-5 text-white">
+                        <div class="flex bg-[#51587e] relative rounded-2xl py-4 px-6 items-center gap-5 text-white">
                             <button onclick={()=>toggleCheckedTask(index)} class="relative">
                                 <div class={`border-2 border-[#00e5ff] h-6 w-6 rounded-sm text-transparent ${checked[index]}`}>0</div>
                                 {#if (checked[index])}
@@ -101,7 +101,7 @@
                             {#if (edit[index])}
                                 <input onchange={(event)=>typingTask(event,1)} value={addedTask.name} class={`text-xl text-black outline-none w-96 ${cross[index]}`}/>
                             {:else}
-                                <h1 class={`text-xl outline-none bg-[#101114] ${cross[index]}`}>{addedTask.name}</h1>
+                                <h1 class={`text-xl outline-none bg-transparent ${cross[index]}`}>{addedTask.name}</h1>
                             {/if}
                             <div class="flex absolute right-4 gap-5">
                                 <button onclick={()=>toggleEditTask(index,addedTask.name as string)}>

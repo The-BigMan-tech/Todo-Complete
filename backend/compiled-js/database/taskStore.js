@@ -25,7 +25,11 @@ export function deleteTaskFromDB(task) {
         const taskDataCollection = yield returnCollection('taskData');
         const lastDocument = yield returnLastDocument(taskDataCollection, { name: task.name });
         console.log("LAST DOCUMENT", lastDocument);
-        yield taskDataCollection.deleteOne({ _id: lastDocument[0]._id });
+        if (lastDocument[0]) {
+            yield taskDataCollection.deleteOne({ _id: lastDocument[0]._id });
+            return;
+        }
+        yield taskDataCollection.deleteOne({ name: task.name });
     });
 }
 export function updateTaskToDB(originalTask, newTask) {
