@@ -58,7 +58,7 @@
         task = defaultText as string
     }
     async function addTask() {
-        if (!task.length) return
+        if (!task.length) return;
         await fetch('http://localhost:4100/addTask',
         {
             method:'POST',
@@ -94,7 +94,7 @@
                         <div class="flex bg-[#101114] relative rounded-2xl py-4 px-6 items-center gap-5 text-white">
                             <button onclick={()=>toggleCheckedTask(index)} class={`border-2 border-[#00e5ff] h-6 w-6 rounded-sm text-transparent ${checked[index]}`}>0</button>
                             {#if (edit[index])}
-                                <input onchange={typingTask} value={addedTask.name} class={`text-xl text-black outline-none ${cross[index]}`}/>
+                                <input onchange={typingTask} value={addedTask.name} class={`text-xl text-black outline-none w-96 ${cross[index]}`}/>
                             {:else}
                                 <h1 class={`text-xl outline-none bg-[#101114] ${cross[index]}`}>{addedTask.name}</h1>
                             {/if}

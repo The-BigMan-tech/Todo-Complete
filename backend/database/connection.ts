@@ -12,7 +12,7 @@ export async function connectToDB() {
     }
 }
 export async function returnCollection(name:string) {
-    const db = await connectToDB()
+    const db = await connectToDB() as Db
     const collections = await db.listCollections({ name:name}).toArray();
     if (!collections.length ) return await db.createCollection(name)
     return await db.collection(name)

@@ -24,6 +24,7 @@ export function deleteTaskFromDB(task) {
     return __awaiter(this, void 0, void 0, function* () {
         const taskDataCollection = yield returnCollection('taskData');
         const lastDocument = yield returnLastDocument(taskDataCollection, { name: task.name });
+        console.log("LAST DOCUMENT", lastDocument);
         yield taskDataCollection.deleteOne({ _id: lastDocument[0]._id });
     });
 }

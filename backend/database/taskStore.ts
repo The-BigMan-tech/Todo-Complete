@@ -14,6 +14,7 @@ export async function getTaskFromDB() {
 export async function deleteTaskFromDB(task:TaskData) {
     const taskDataCollection = await returnCollection('taskData')
     const lastDocument = await returnLastDocument(taskDataCollection,{name:task.name})
+    console.log("LAST DOCUMENT",lastDocument);
     await taskDataCollection.deleteOne({ _id:lastDocument[0]._id })
 }
 export async function updateTaskToDB(originalTask:TaskData,newTask:TaskData) {
