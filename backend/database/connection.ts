@@ -1,6 +1,6 @@
 //@ts-ignore
 import {MongoClient,Db,Collection} from 'mongodb'
-const client = new MongoClient("mongodb://localhost:27017/");
+const client = new MongoClient("mongodb://localhost:27018/");
 let database:Db;
 
 export async function connectToDB() {

@@ -37,5 +37,5 @@ process.on('SIGINT',async ()=>{
     await closeConnectionToDB()
     process.exit(0)
 })
-const PORT = 4100
+const PORT = process.env.PORT || 4100
 app.listen(4100,()=>console.log(`Server is running on the port ${PORT}`))
